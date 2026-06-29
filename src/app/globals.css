@@ -1,26 +1,119 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─── Custom properties for animated globe gradient ─── */
+@property --globe-x {
+  syntax: "<percentage>";
+  initial-value: 38%;
+  inherits: false;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@property --globe-y {
+  syntax: "<percentage>";
+  initial-value: 30%;
+  inherits: false;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── Design Tokens ─── */
+@theme {
+  --font-headline: var(--font-bebas);
+  --font-sans: var(--font-inter);
+
+  --color-brand:      #E8001C;
+  --color-neon:       #7FFF00;
+  --color-bg:         #000000;
+  --color-nav-surface:#111111;
+
+  --animate-glow-pulse:  glow-pulse 4s ease-in-out infinite;
+  --animate-pin-beat:    pin-beat 2.5s ease-in-out infinite;
+  --animate-text-appear: text-appear 0.7s ease-out both;
+}
+
+/* ─── Keyframes ─── */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 60px 30px  rgba(232, 0, 28, 0.22),
+      0 0 130px 65px rgba(232, 0, 28, 0.08),
+      inset 0 0 70px rgba(0, 0, 0, 0.45);
+  }
+  50% {
+    box-shadow:
+      0 0 100px 50px rgba(255, 0, 60, 0.38),
+      0 0 210px 100px rgba(255, 0, 80, 0.14),
+      inset 0 0 70px rgba(0, 0, 0, 0.45);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes pin-beat {
+  0%, 100% { transform: scale(1);    opacity: 1;   }
+  50%       { transform: scale(1.25); opacity: 0.7; }
 }
+
+@keyframes text-appear {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0);     }
+}
+
+@keyframes globe-orbit {
+  0%,  100% { --globe-x: 38%; --globe-y: 30%; }
+  33%        { --globe-x: 55%; --globe-y: 24%; }
+  66%        { --globe-x: 42%; --globe-y: 47%; }
+}
+
+/* ─── Globe Sphere ─── */
+.globe-sphere {
+  animation:
+    globe-orbit   12s ease-in-out infinite,
+    glow-pulse    4s  ease-in-out infinite;
+  background: radial-gradient(
+    circle at var(--globe-x) var(--globe-y),
+    #ff006e 0%,
+    #ff0040 18%,
+    #e8001c 38%,
+    #8b0010 60%,
+    #3d0006 80%,
+    #000000 100%
+  );
+}
+
+/* ─── Navbar glass (Apple dark vibrancy) ─── */
+.nav-glass {
+  position: relative;
+  isolation: isolate;
+  background: rgba(18, 18, 18, 0.72);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0.5px 0 rgba(255, 255, 255, 0.06) inset,
+    0 8px 32px rgba(0, 0, 0, 0.48);
+}
+
+.nav-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 28%
+  );
+  pointer-events: none;
+}
+
+/* ─── Base ─── */
+html { scroll-behavior: smooth; }
+
+body {
+  background: #000000;
+  color: #e8001c;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Custom scrollbar ─── */
+::-webkit-scrollbar        { width: 3px; }
+::-webkit-scrollbar-track  { background: #000; }
+::-webkit-scrollbar-thumb  { background: #e8001c; border-radius: 2px; }
