@@ -16,7 +16,7 @@ export function ScrollRotateBackground({
   src = "/bg_underground_full_abstract.png",
   rotationDegrees = 300,
   rotationDistance = 7000,
-  opacity = 0.28,
+  opacity = 0.3,
 }: ScrollRotateBackgroundProps) {
   const prefersReducedMotion = useReducedMotion()
   const { scrollY } = useScroll()
@@ -31,34 +31,18 @@ export function ScrollRotateBackground({
       aria-hidden="true"
     >
       <motion.div
-        className="will-change-transform"
+        className="scroll-bg-image shrink-0 will-change-transform"
         style={{
-          width: "140vmax",
-          height: "140vmax",
           rotate: prefersReducedMotion ? 0 : rotate,
           backgroundImage: `url(${src})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
           opacity,
         }}
       />
 
-      {/* Camadas de contraste: mantém texto legível e adiciona profundidade */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 42%, transparent 0%, transparent 42%, rgba(0,0,0,0.55) 100%)",
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 22%, rgba(0,0,0,0.15) 78%, rgba(0,0,0,0.75) 100%)",
-        }}
-      />
+      {/* Camadas de contraste: mantém texto legível e adiciona profundidade.
+          Tamanho e intensidade são ajustados por breakpoint em globals.css. */}
+      <div className="scroll-bg-radial absolute inset-0" />
+      <div className="scroll-bg-linear absolute inset-0" />
     </div>
   )
 }

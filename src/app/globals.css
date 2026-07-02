@@ -102,6 +102,62 @@
   pointer-events: none;
 }
 
+/* ─── Fundo rotativo (scroll-rotate-background) ─── */
+/* Mobile-first: imagem maior e mais imersiva; gradientes suaves p/ revelar o padrão */
+.scroll-bg-image {
+  width: 200vmax;
+  height: 200vmax;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.scroll-bg-radial {
+  background: radial-gradient(
+    circle at 50% 46%,
+    transparent 0%,
+    transparent 58%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+.scroll-bg-linear {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.08) 16%,
+    rgba(0, 0, 0, 0.08) 84%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+/* Desktop: mandala centralizada em paisagem já fica imersiva com menos escala */
+@media (min-width: 768px) {
+  .scroll-bg-image {
+    width: 150vmax;
+    height: 150vmax;
+  }
+
+  .scroll-bg-radial {
+    background: radial-gradient(
+      circle at 50% 42%,
+      transparent 0%,
+      transparent 42%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+  }
+
+  .scroll-bg-linear {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.65) 0%,
+      rgba(0, 0, 0, 0.15) 22%,
+      rgba(0, 0, 0, 0.15) 78%,
+      rgba(0, 0, 0, 0.75) 100%
+    );
+  }
+}
+
 /* ─── Base ─── */
 html { scroll-behavior: smooth; }
 
