@@ -1,4 +1,5 @@
 import { LanguageProvider } from "@/components/language-context";
+import { ScrollRotateBackground } from "@/components/scroll-rotate-background";
 import { RafaNavbar } from "@/components/rafa-navbar";
 import { RafaMinimalistHero } from "@/components/rafa-minimalist-hero";
 import { RafaHero } from "@/components/rafa-hero";
@@ -10,7 +11,8 @@ import { RafaContact } from "@/components/rafa-contact";
 export default function Home() {
   return (
     <LanguageProvider>
-      <main className="bg-black">
+      <ScrollRotateBackground />
+      <main className="relative">
         <RafaNavbar />
         <RafaMinimalistHero />
         <RafaHero />
